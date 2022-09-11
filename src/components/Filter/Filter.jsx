@@ -2,9 +2,11 @@ import React from 'react';
 import style from './Filter.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  filterContact,
   getFilteredContact,
 } from 'Redux/contactSlice';
+import contactSlice from 'Redux/contactSlice';
+
+const { filterContact } = contactSlice;
 
 
 export default function Filter() {

@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { fetchContacts } from './contacts-operation';
 
 
 const initialState = {
@@ -9,29 +10,49 @@ const initialState = {
     { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
   ],
   filter: '',
+  loading: false,
+  error: null,
 };
 const contactSlice = createSlice({
   name: 'contacts',
   initialState: initialState,
   reducers: {
-    addContacts(state, { payload }) {
-      state.items.push(payload);
-    },
-    removeContact(state, { payload }) {
-      state.items = state.items.filter(contact => contact.id !== payload);
-    },
     filterContact(state, { payload }) {
       state.filter = payload;
-    },
+},
   },
+  extraReducers: {
+    [fetchContacts.pending]: (store) => {
+      store.loading = true;
+      store.error = null;
+    },
+    [fetchContacts.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.item = payload;
+    },
+    [fetchContacts.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload;
+    }
+  }
+  // reducers: {
+  //   addContacts(state, { payload }) {
+  //     state.items.push(payload);
+  //   },
+  //   removeContact(state, { payload }) {
+  //     state.items = state.items.filter(contact => contact.id !== payload);
+  //   },
+  //   filterContact(state, { payload }) {
+  //     state.filter = payload;
+  //   },
+  // },
 });
 
 
 
-export const { addContacts, removeContact, filterContact } =
-  contactSlice.actions;
-
-export default contactSlice;
+// export const { addContacts, removeContact, filterContact } =
+//   contactSlice.actions;
+export default contactSlice.reducer;
 
 // Selector
 
