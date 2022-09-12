@@ -3,13 +3,19 @@ import { nanoid } from 'nanoid';
 import style from './ContactForm.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchContacts, addContact } from 'Redux/contacts-operation';
+import { getContacts } from 'Redux/contactSlice';
+import { useEffect } from 'react';
 
 export default function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
   const dispatch = useDispatch();
-  const contacts = useSelector(fetchContacts);
+  const contacts = useSelector(getContacts);
+
+  useEffect(() => {
+    dispatch(fetchContacts())
+  },[dispatch])
 
   const reset = () => {
     setName('');

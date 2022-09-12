@@ -7,7 +7,7 @@ import { getContacts, getFilteredContact } from 'Redux/contactSlice';
 const ContactList = () => {
   const contacts = useSelector(getContacts);
   const filter = useSelector(getFilteredContact);
-
+console.log(contacts);
   const getVisibleContact = () => {
     const normalizedfilter = filter.toLowerCase();
 

@@ -2,17 +2,14 @@ import React from 'react';
 import style from './Filter.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  getFilteredContact,
+  getFilteredContact
 } from 'Redux/contactSlice';
-import contactSlice from 'Redux/contactSlice';
-
-const { filterContact } = contactSlice;
-
+import {filterContact} from 'Redux/contactSlice';
 
 export default function Filter() {
 const dispatch = useDispatch();
   const filter = useSelector(getFilteredContact);
-  const changeFilter = e => dispatch(filterContact(e.currentTarget.value));
+  const changeFilter = e => dispatch(filterContact(e.target.value));
 
   return (
     <div className={style.flex}>
